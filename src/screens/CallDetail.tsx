@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getCallActivity } from '../query';
 import { callActivityType } from '../types';
 import { ChevronLeftIcon } from '@heroicons/react/24/outline';
-import LoaderIcon from '../assets/icons/loader';
+import LoaderIcon from '../assets/icons/Loader';
 import { ArrowPathIcon, TrashIcon } from '@heroicons/react/24/solid';
 
 const CallDetail = () => {

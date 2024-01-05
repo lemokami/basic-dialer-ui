@@ -4,7 +4,7 @@ import CallElement from '../components/CallElement';
 import { unArchiveAllCalls, getArchivedCallActivities } from '../query';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
-import LoaderIcon from '../assets/icons/loader';
+import LoaderIcon from '../assets/icons/Loader';
 import SearchBar from '../components/SearchBar';
 
 const Archive = () => {

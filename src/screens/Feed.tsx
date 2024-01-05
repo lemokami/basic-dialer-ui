@@ -4,7 +4,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { archiveCalls, getUnArchivedCallActivities } from '../query';
 import { callActivityType } from '../types';
 import { useState } from 'react';
-import LoaderIcon from '../assets/icons/loader';
+import LoaderIcon from '../assets/icons/Loader';
 import SearchBar from '../components/SearchBar';
 
 const Feed = () => {
