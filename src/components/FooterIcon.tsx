@@ -9,10 +9,13 @@ interface FooterIconProps {
 const FooterIcon: FC<FooterIconProps> = ({ name, icon, active = false }) => {
   return (
     <div
-      className={`flex flex-col items-center rounded-full p-2 px-5 text-white ${
-        active ? 'bg-white/20' : 'bg-transparent '
-      }`}>
-      {icon}
+      className={`flex flex-col gap-0.5 items-center rounded-full p-2 px-5 text-black`}>
+      <span
+        className={`p-1 px-4 rounded-full ${
+          active ? 'bg-black/10' : 'bg-transparent'
+        }`}>
+        {icon}
+      </span>
       <span className='text-xs'>{name}</span>
     </div>
   );
