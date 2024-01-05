@@ -1,12 +1,13 @@
 import { MagnifyingGlassIcon, StarIcon } from '@heroicons/react/24/outline';
 import CallElement from '../components/CallElement';
 import BaseLayout from '../layouts';
-import { Link } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { archiveCalls, getUnArchivedCallActivities } from '../query';
 import { callActivityType } from '../types';
+import { useState } from 'react';
 
 const Feed = () => {
+  const [expandedCallId, setExpandedCallId] = useState<string>('');
   const queryClient = useQueryClient();
   const {
     data: callData,
@@ -56,9 +57,14 @@ const Feed = () => {
 
         {isSuccess &&
           callData.map((call) => (
-            <Link to={`/call/${call.id}`} key={call.id}>
-              <CallElement {...call} />
-            </Link>
+            <CallElement
+              {...call}
+              key={call.id}
+              expanded={expandedCallId === call.id}
+              setExpanded={() =>
+                setExpandedCallId((id) => (id === call.id ? '' : call.id))
+              }
+            />
           ))}
       </div>
       {/* // ? end of feed */}

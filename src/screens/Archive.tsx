@@ -1,12 +1,13 @@
 import BaseLayout from '../layouts';
-import { Link } from 'react-router-dom';
 import { callActivityType } from '../types';
 import CallElement from '../components/CallElement';
-import { UnArchiveAllCalls, getArchivedCallActivities } from '../query';
+import { unArchiveAllCalls, getArchivedCallActivities } from '../query';
 import { MagnifyingGlassIcon, StarIcon } from '@heroicons/react/24/outline';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useState } from 'react';
 
 const Archive = () => {
+  const [expandedCallId, setExpandedCallId] = useState<string>('');
   const queryClient = useQueryClient();
 
   const {
@@ -19,7 +20,7 @@ const Archive = () => {
   });
 
   const unArchiveAll = useMutation({
-    mutationFn: UnArchiveAllCalls,
+    mutationFn: unArchiveAllCalls,
     onSuccess: () => {
       queryClient.refetchQueries({
         queryKey: ['activities/archived'],
@@ -56,9 +57,14 @@ const Archive = () => {
 
         {isSuccess &&
           callData.map((call) => (
-            <Link to={`/call/${call.id}`} key={call.id}>
-              <CallElement {...call} />
-            </Link>
+            <CallElement
+              {...call}
+              key={call.id}
+              expanded={expandedCallId === call.id}
+              setExpanded={() =>
+                setExpandedCallId((id) => (id === call.id ? '' : call.id))
+              }
+            />
           ))}
       </div>
       {/* // ? end of feed */}
