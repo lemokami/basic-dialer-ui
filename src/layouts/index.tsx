@@ -36,16 +36,6 @@ const BaseLayout: FC<BaseLayoutProps> = ({ children }) => {
             />
           )}
         </NavLink>
-
-        <NavLink to='/settings'>
-          {({ isActive }) => (
-            <FooterIcon
-              name='Settings'
-              icon={<Cog6ToothIcon className='h-6' />}
-              active={isActive}
-            />
-          )}
-        </NavLink>
       </footer>
     </>
   );
