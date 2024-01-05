@@ -35,7 +35,12 @@ export const archiveCalls = async (ids: string[] = []) => {
   return res;
 };
 
-export const UnArchiveAllCalls = async () => {
+export const unArchiveAllCalls = async () => {
   const res = await AXIOS.patch('/reset');
+  return res.data;
+};
+
+export const unArchiveCall = async (id: string) => {
+  const res = await AXIOS.patch(`/activities/${id}`, { is_archived: false });
   return res.data;
 };
