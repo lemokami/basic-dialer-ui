@@ -21,12 +21,8 @@ const Archive = () => {
   const unArchiveAll = useMutation({
     mutationFn: UnArchiveAllCalls,
     onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: [
-          'activities',
-          'activities/archived',
-          'activities/unarchived',
-        ],
+      queryClient.refetchQueries({
+        queryKey: ['activities/archived'],
       });
     },
   });

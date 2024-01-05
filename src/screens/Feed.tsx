@@ -1,4 +1,4 @@
-import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import { MagnifyingGlassIcon, StarIcon } from '@heroicons/react/24/outline';
 import CallElement from '../components/CallElement';
 import BaseLayout from '../layouts';
 import { Link } from 'react-router-dom';
@@ -8,7 +8,11 @@ import { callActivityType } from '../types';
 
 const Feed = () => {
   const queryClient = useQueryClient();
-  const { data: callData, isSuccess } = useQuery<callActivityType[]>({
+  const {
+    data: callData,
+    isSuccess,
+    isLoading,
+  } = useQuery<callActivityType[]>({
     queryKey: ['activities/unarchived'],
     queryFn: getUnArchivedCallActivities,
   });
@@ -17,12 +21,8 @@ const Feed = () => {
     mutationFn: async () =>
       await archiveCalls(callData?.map((call) => call.id)),
     onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: [
-          'activities',
-          'activities/archived',
-          'activities/unarchived',
-        ],
+      queryClient.refetchQueries({
+        queryKey: ['activities/unarchived'],
       });
     },
   });
@@ -51,6 +51,9 @@ const Feed = () => {
             archive all
           </button>
         </div>
+
+        {isLoading && <StarIcon className='h-6 animate-spin mt-4' />}
+
         {isSuccess &&
           callData.map((call) => (
             <Link to={`/call/${call.id}`} key={call.id}>
