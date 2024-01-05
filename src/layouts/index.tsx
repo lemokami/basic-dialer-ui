@@ -1,7 +1,6 @@
 import {
   ArchiveBoxArrowDownIcon,
   ClockIcon,
-  Cog6ToothIcon,
 } from '@heroicons/react/24/outline';
 import FooterIcon from '../components/FooterIcon';
 import { NavLink } from 'react-router-dom';
@@ -14,9 +13,9 @@ interface BaseLayoutProps {
 const BaseLayout: FC<BaseLayoutProps> = ({ children }) => {
   return (
     <>
-      <div className='min-h-screen bg-[#f8f8fe] p-6'>{children}</div>
+      <div className='bg-[#f8f8fe] p-6 min-h-screen'>{children}</div>
 
-      <footer className='sticky bottom-0 p-4 bg-[#1b3692] w-full text-[#f8f8fe]/50 flex gap-2 rounded-t-3xl'>
+      <footer className='sticky bottom-0 p-3 justify-center  bg-[#eaeaf0] w-full text-black flex gap-6'>
         <NavLink to='/'>
           {({ isActive }) => (
             <FooterIcon
