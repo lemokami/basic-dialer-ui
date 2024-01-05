@@ -2,12 +2,14 @@ import BaseLayout from '../layouts';
 import { callActivityType } from '../types';
 import CallElement from '../components/CallElement';
 import { unArchiveAllCalls, getArchivedCallActivities } from '../query';
-import { MagnifyingGlassIcon, StarIcon } from '@heroicons/react/24/outline';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
+import LoaderIcon from '../assets/icons/loader';
+import SearchBar from '../components/SearchBar';
 
 const Archive = () => {
   const [expandedCallId, setExpandedCallId] = useState<string>('');
+  const [filterKey, setFilterKey] = useState<string>('');
   const queryClient = useQueryClient();
 
   const {
@@ -35,9 +37,10 @@ const Archive = () => {
   return (
     <BaseLayout>
       {/* // ? search bar */}
-      <div className='rounded-full bg-[#f0f0f8] p-2 border w-full'>
-        <MagnifyingGlassIcon className='h-6 text-[#9ba0bc]' />
-      </div>
+      <SearchBar
+        searchKey={filterKey}
+        setSearchKey={(key) => setFilterKey(key.trim())}
+      />
       {/* // ? end of search bar */}
 
       {/* // ? feed */}
@@ -53,19 +56,26 @@ const Archive = () => {
           </button>
         </div>
 
-        {isLoading && <StarIcon className='h-6 animate-spin mt-4' />}
+        {isLoading && (
+          <LoaderIcon className='h-6 animate-spin mt-4 self-center' />
+        )}
 
         {isSuccess &&
-          callData.map((call) => (
-            <CallElement
-              {...call}
-              key={call.id}
-              expanded={expandedCallId === call.id}
-              setExpanded={() =>
-                setExpandedCallId((id) => (id === call.id ? '' : call.id))
-              }
-            />
-          ))}
+          callData
+            .filter(
+              (item) =>
+                filterKey == '' || item.from.toString().includes(filterKey)
+            )
+            .map((call) => (
+              <CallElement
+                {...call}
+                key={call.id}
+                expanded={expandedCallId === call.id}
+                setExpanded={() =>
+                  setExpandedCallId((id) => (id === call.id ? '' : call.id))
+                }
+              />
+            ))}
       </div>
       {/* // ? end of feed */}
     </BaseLayout>
