@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const AXIOS = axios.create({
+const Axios = axios.create({
   baseURL: 'https://cerulean-marlin-wig.cyclic.app',
 });
 
-export default AXIOS;
+export default Axios;
