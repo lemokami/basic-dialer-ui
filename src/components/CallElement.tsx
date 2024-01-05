@@ -16,6 +16,7 @@ import {
 import { Link } from 'react-router-dom';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { archiveCalls, unArchiveCall } from '../query';
+import VoiceMailIcon from '../assets/icons/voiceMail';
 
 dayjs.extend(relativeTime);
 
@@ -77,12 +78,15 @@ const CallElement: FC<Props> = ({
       }`}>
       <div className='rounded-xl flex justify-between'>
         <div className='flex items-start gap-3'>
-          {direction == 'inbound' &&
-            (call_type == 'missed' || call_type == 'voicemail') && (
-              <PhoneXMarkIcon className='h-5 text-red-500 mt-1' />
-            )}
+          {direction == 'inbound' && call_type == 'missed' && (
+            <PhoneXMarkIcon className='h-5 text-red-500 mt-1' />
+          )}
           {direction == 'inbound' && call_type == 'answered' && (
             <PhoneArrowDownLeftIcon className='h-5 text-green-500 mt-1' />
+          )}
+
+          {direction == 'inbound' && call_type == 'voicemail' && (
+            <VoiceMailIcon className='h-5 text-green-500 mt-1' />
           )}
 
           {direction == 'outbound' && (
