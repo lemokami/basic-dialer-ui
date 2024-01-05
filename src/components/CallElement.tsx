@@ -16,7 +16,7 @@ import {
 import { Link } from 'react-router-dom';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { archiveCalls, unArchiveCall } from '../query';
-import VoiceMailIcon from '../assets/icons/voiceMail';
+import VoiceMailIcon from '../assets/icons/VoiceMail';
 
 dayjs.extend(relativeTime);
 
